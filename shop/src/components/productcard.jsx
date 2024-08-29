@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
         <div className="relative h-64">
           <img
             src={`data:${product.images[currentImageIndex].contentType};base64,${product.images[currentImageIndex].data}`}
-            alt={product.name}
+            alt={product.title}
             className="w-full h-full object-cover"
           />
           {showControls && (
@@ -58,7 +58,7 @@ const ProductCard = ({ product }) => {
       <div className="p-6">
         <p className="text-gray-600 text-sm mb-4">{product.description}</p>
         <div className="flex justify-between items-center">
-          <p className="text-2xl font-bold text-indigo-600">${product.price}</p>
+          <p className="text-2xl font-bold text-indigo-600">${product.pricePerUnit}</p>
           <button className="bg-indigo-500 text-white py-2 px-4 rounded-full hover:bg-indigo-600 transition duration-300 ease-in-out">
             Edit
           </button>

@@ -14,6 +14,8 @@ const sellerRoutes = require("./routes/sellerRoutes");
 const authRouter = require('./routes/authRouter');
 const productRoutes = require('./routes/productRoutes');
 const verificationRoutes = require('./routes/verificationRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
 
 
 
@@ -35,7 +37,7 @@ app.use('/api', sellerRoutes);
 app.use('/api', authRouter);
 app.use('/api', productRoutes);
 app.use('/api/', verificationRoutes);
-
+app.use('/api/', orderRoutes);
 
 
 

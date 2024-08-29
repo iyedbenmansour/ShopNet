@@ -66,16 +66,22 @@ exports.getAllProducts = async (req, res) => {
 // Get product by ID
 exports.getProductById = async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id);
-        if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
-        }
-        res.status(200).json(product);
+      const product = await Product.findById(req.params.id);
+      if (!product) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+  
+      // Convert image buffers to base64
+      const images = product.images.map(image => ({
+        data: image.data.toString('base64'),
+        contentType: image.contentType,
+      }));
+  
+      res.status(200).json({ ...product.toObject(), images });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
-};
-
+  };
 // Get products by poster ID
 exports.getProductsByPosterId = async (req, res) => {
     try {

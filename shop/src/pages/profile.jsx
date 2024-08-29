@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import NavBar from '../components/Navbar';
 import ProductCard from '../components/productcard';
 
@@ -87,6 +87,8 @@ const Profile = () => {
       </div>
     );
   }
+
+  const canAddProduct = verificationStatus?.userVerified && verificationStatus?.paymentVerified;
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -178,11 +180,21 @@ const Profile = () => {
         {userRole === 'seller' && (
           <div className="mt-12">
             <button
-              className="bg-indigo-600 text-white py-4 px-8 rounded-lg shadow-lg hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
-              onClick={() => window.location.href = '/add-product'}
+              className={`py-4 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform ${
+                canAddProduct
+                  ? 'bg-indigo-600 text-white hover:bg-indigo-700 hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50'
+                  : 'bg-gray-400 text-gray-200 cursor-not-allowed'
+              }`}
+              onClick={() => canAddProduct && (window.location.href = '/add-product')}
+              disabled={!canAddProduct}
             >
               Add New Product
             </button>
+            {!canAddProduct && (
+              <p className="mt-4 text-red-600 text-center">
+                You need to be verified and subscribed to add products.
+              </p>
+            )}
           </div>
         )}
 

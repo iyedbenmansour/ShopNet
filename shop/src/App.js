@@ -11,6 +11,7 @@ import Profile from "./pages/profile";
 import Products from "./pages/Products";
 import Catalogue from "./pages/Catalogue";
 import AdminVerify from "./pages/adminverify";
+import ProductDetails from "./pages/ProductDetails";
 function App() {
 
   return (
@@ -24,6 +25,8 @@ function App() {
           <Route path="/add-product" element={<Products/>}/>
           <Route path="/catalogue" element={<Catalogue/>}/>
           <Route path="/adminverify" element={<AdminVerify/>}/>
+          <Route path="/product/:id" element={<ProductDetails />} />
+
           </Routes>
       </BrowserRouter>
   );

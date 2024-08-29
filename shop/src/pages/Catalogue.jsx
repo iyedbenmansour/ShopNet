@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/Navbar';
 
 export default function Catalogue() {
@@ -9,6 +10,7 @@ export default function Catalogue() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [categories, setCategories] = useState(['All']);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -76,7 +78,6 @@ export default function Catalogue() {
       <div className="container mx-auto px-4 py-8 mt-16">
         <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">Product Catalogue</h1>
         
-        {/* Search and Category Filter */}
         <div className="mb-8 flex flex-col md:flex-row justify-between items-center">
           <div className="w-full md:w-1/2 mb-4 md:mb-0">
             <input
@@ -100,12 +101,12 @@ export default function Catalogue() {
           </div>
         </div>
 
-        {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.map(product => (
             <div
               key={product._id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-full"
+              className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-full cursor-pointer"
+              onClick={() => navigate(`/product/${product._id}`)}
               onMouseEnter={() => setHoveredProductId(product._id)}
               onMouseLeave={() => setHoveredProductId(null)}
             >
