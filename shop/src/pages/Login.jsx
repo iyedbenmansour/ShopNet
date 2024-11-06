@@ -14,7 +14,7 @@ export default function Login() {
   
     try {
       // Send the login request
-      const response = await axios.post('http://localhost:5000/api/login', {
+      const response = await axios.post('https://shopnet-iov2.onrender.com/api/login', {
         email,
         password,
         role
@@ -28,7 +28,7 @@ export default function Login() {
   
       if (role === 'seller') {
         // Create a new verification record if it doesn't exist
-        await axios.post('http://localhost:5000/api/verify', {
+        await axios.post('https://shopnet-iov2.onrender.com/api/verify', {
           email,
           password
         });

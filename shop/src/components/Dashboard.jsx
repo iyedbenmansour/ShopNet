@@ -9,7 +9,7 @@ const Dashboard = ({ sellerId }) => {
 
   useEffect(() => {
     if (sellerId) {
-      axios.get(`http://localhost:5000/api/orders/seller/${sellerId}`)
+      axios.get(`https://shopnet-iov2.onrender.com/api/orders/seller/${sellerId}`)
         .then(response => {
           setOrders(response.data);
           setLoading(false);

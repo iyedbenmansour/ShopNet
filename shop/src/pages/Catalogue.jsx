@@ -15,7 +15,7 @@ export default function Catalogue() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products');
+        const response = await axios.get('https://shopnet-iov2.onrender.com/api/products');
         setProducts(response.data);
         const initialIndices = response.data.reduce((acc, product) => {
           acc[product._id] = 0;

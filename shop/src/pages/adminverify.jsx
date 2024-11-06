@@ -13,7 +13,7 @@ export default function AdminVerify() {
   useEffect(() => {
     async function fetchSellers() {
       try {
-        const response = await axios.get('http://localhost:5000/api/sellers');
+        const response = await axios.get('https://shopnet-iov2.onrender.com/api/sellers');
         setSellers(response.data);
       } catch (error) {
         console.error('Error fetching sellers:', error);
@@ -22,7 +22,7 @@ export default function AdminVerify() {
 
     async function fetchVerifications() {
       try {
-        const response = await axios.get('http://localhost:5000/api/verify');
+        const response = await axios.get('https://shopnet-iov2.onrender.com/api/verify');
         setVerifications(response.data);
       } catch (error) {
         console.error('Error fetching verifications:', error);
@@ -106,7 +106,7 @@ export default function AdminVerify() {
         return;
       }
 
-      await axios.patch(`http://localhost:5000/api/verify/${enterpriseId}`, updates);
+      await axios.patch(`https://shopnet-iov2.onrender.com/api/verify/${enterpriseId}`, updates);
       setVerifications(prev => prev.map(v =>
         v.enterpriseId.toString() === enterpriseId ? { ...v, ...updates } : v
       ));

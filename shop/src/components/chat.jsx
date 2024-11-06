@@ -26,7 +26,7 @@ export default function Chat() {
       (async () => {
         try {
           const messagesResponse = await axios.get(
-            `http://localhost:5000/api/messages/${currentUserId}/${sellerId}`,
+            `https://shopnet-iov2.onrender.com/api/messages/${currentUserId}/${sellerId}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }

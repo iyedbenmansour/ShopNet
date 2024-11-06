@@ -13,16 +13,16 @@ export default function Facture({ orderDetails, onConfirm }) {
     const fetchDetails = async () => {
       if (orderDetails && orderDetails.productId && orderDetails.userId) {
         try {
-          const productResponse = await axios.get(`http://localhost:5000/api/products/${orderDetails.productId}`);
+          const productResponse = await axios.get(`https://shopnet-iov2.onrender.com/api/products/${orderDetails.productId}`);
           const product = productResponse.data;
           setProductName(product.title);
           setProductDetails(product);
   
-          const sellerResponse = await axios.get(`http://localhost:5000/api/sellers/${product.posterId}`);
+          const sellerResponse = await axios.get(`https://shopnet-iov2.onrender.com/api/sellers/${product.posterId}`);
           setSellerName(sellerResponse.data.enterpriseName);
           setSellerDetails(sellerResponse.data);
   
-          const buyerResponse = await axios.get(`http://localhost:5000/api/buyers/${orderDetails.userId}`);
+          const buyerResponse = await axios.get(`https://shopnet-iov2.onrender.com/api/buyers/${orderDetails.userId}`);
           setBuyerDetails(buyerResponse.data);
         } catch (error) {
           console.error('Error fetching details:', error);
@@ -43,7 +43,7 @@ export default function Facture({ orderDetails, onConfirm }) {
   }, [orderDetails]);
   const handleConfirm = async () => {
     try {
-      await axios.post('http://localhost:5000/api/orders', orderDetails);
+      await axios.post('https://shopnet-iov2.onrender.com/api/orders', orderDetails);
       setConfirmed(true);
       onConfirm();
     } catch (error) {

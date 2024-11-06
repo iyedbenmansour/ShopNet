@@ -36,7 +36,7 @@ export default function Register() {
 
     formData.append('profilePicture', profilePicture);
 
-    const url = role === 'buyer' ? 'http://localhost:5000/api/buyers' : 'http://localhost:5000/api/sellers';
+    const url = role === 'buyer' ? 'https://shopnet-iov2.onrender.com/api/buyers' : 'https://shopnet-iov2.onrender.com/api/sellers';
 
     try {
       const response = await fetch(url, {

@@ -23,7 +23,7 @@ const Profile = () => {
 
         setUserRole(role);
 
-        const apiUrl = `http://localhost:5000/api/${role}s/${userId}`;
+        const apiUrl = `https://shopnet-iov2.onrender.com/api/${role}s/${userId}`;
 
         axios.get(apiUrl)
           .then(response => {
@@ -36,7 +36,7 @@ const Profile = () => {
           });
 
         if (role === 'seller') {
-          axios.get(`http://localhost:5000/api/products/poster/${userId}`)
+          axios.get(`https://shopnet-iov2.onrender.com/api/products/poster/${userId}`)
             .then(response => {
               const fetchedProducts = response.data;
               setProducts(fetchedProducts);
@@ -51,7 +51,7 @@ const Profile = () => {
               }
             });
 
-          axios.get(`http://localhost:5000/api/verify/${userId}`)
+          axios.get(`https://shopnet-iov2.onrender.com/api/verify/${userId}`)
             .then(response => {
               const verificationData = response.data[0] || {};
               setVerificationStatus(verificationData);
