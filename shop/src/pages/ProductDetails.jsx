@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import NavBar from '../components/Navbar';
 import Facture from '../components/facture';
-
 export default function ProductDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [mainImage, setMainImage] = useState(0);
@@ -60,6 +60,11 @@ export default function ProductDetails() {
     };
 
     setOrderDetails(orderData);
+  };
+
+  const handleContactSeller = () => {
+    const sellerId = product.posterId;
+    navigate(`/chat/${sellerId}`);
   };
 
   const handleOrderConfirmed = () => {
@@ -254,6 +259,7 @@ export default function ProductDetails() {
                   Start Order
                 </button>
                 <button
+                  onClick={handleContactSeller}
                   className="flex-1 bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 transition duration-300 font-semibold"
                 >
                   Contact Seller

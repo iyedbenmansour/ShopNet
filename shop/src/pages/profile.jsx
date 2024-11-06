@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import NavBar from '../components/Navbar';
 import ProductCard from '../components/productcard';
 
@@ -172,8 +172,20 @@ const Profile = () => {
                     </div>
                   </div>
                 )}
+                
               </div>
+              {userRole === 'seller' && (
+          <div className="mt-12">
+            <button
+              className="py-4 px-8 rounded-lg shadow-lg bg-green-600 text-white hover:bg-green-700 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+              onClick={() => (window.location.href = '/finish-profile')}
+            >
+              Finish Profile
+            </button>
+          </div>
+        )}
             </div>
+            
           </div>
         )}
 
@@ -197,6 +209,8 @@ const Profile = () => {
             )}
           </div>
         )}
+
+   
 
         {userRole === 'seller' && (
           <div className="mt-16">

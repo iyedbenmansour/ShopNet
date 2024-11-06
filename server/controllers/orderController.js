@@ -36,15 +36,15 @@ exports.getOrdersByBuyer = async (req, res) => {
 };
 
 // Get orders by seller
+
 exports.getOrdersBySeller = async (req, res) => {
   try {
-    const orders = await Order.find({ 'productId.sellerId': req.params.sellerId });
+    const orders = await Order.find({ sellerId: req.params.sellerId }).populate('productId');
     res.json(orders);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
-
 // Update order
 exports.updateOrder = async (req, res) => {
   try {

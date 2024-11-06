@@ -17,22 +17,30 @@ export default function Facture({ orderDetails, onConfirm }) {
           const product = productResponse.data;
           setProductName(product.title);
           setProductDetails(product);
-
+  
           const sellerResponse = await axios.get(`http://localhost:5000/api/sellers/${product.posterId}`);
           setSellerName(sellerResponse.data.enterpriseName);
           setSellerDetails(sellerResponse.data);
-
+  
           const buyerResponse = await axios.get(`http://localhost:5000/api/buyers/${orderDetails.userId}`);
           setBuyerDetails(buyerResponse.data);
         } catch (error) {
           console.error('Error fetching details:', error);
+          if (error.response) {
+            console.error('Response data:', error.response.data);
+            console.error('Response status:', error.response.status);
+            console.error('Response headers:', error.response.headers);
+          } else if (error.request) {
+            console.error('Request data:', error.request);
+          } else {
+            console.error('Error message:', error.message);
+          }
         }
       }
     };
-
+  
     fetchDetails();
   }, [orderDetails]);
-
   const handleConfirm = async () => {
     try {
       await axios.post('http://localhost:5000/api/orders', orderDetails);
@@ -47,12 +55,16 @@ export default function Facture({ orderDetails, onConfirm }) {
     return <div>No order details available.</div>;
   }
 
+  const totalPrice = orderDetails.totalPrice;
+  const shippingCost = orderDetails.shipping === 'Yes' ? productDetails.shippingPrice || 0 : 0;
+  const grandTotal = totalPrice + shippingCost;
+
   return (
     <div className="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-6 px-8">
           <h1 className="text-4xl font-extrabold tracking-tight">Invoice</h1>
-          <p className="mt-2 text-blue-100">Order #{orderDetails.orderId || 'N/A'}</p>
+          <p className="mt-2 text-blue-100">Order </p>
         </div>
         
         <div className="p-8">
@@ -105,7 +117,7 @@ export default function Facture({ orderDetails, onConfirm }) {
                   <td className="py-4 px-4">{productName || 'Loading...'}</td>
                   <td className="py-4 px-4">{orderDetails.quantity}</td>
                   <td className="py-4 px-4">${productDetails.pricePerUnit?.toFixed(2) || 'Loading...'}</td>
-                  <td className="py-4 px-4 font-medium">${orderDetails.totalPrice.toFixed(2)}</td>
+                  <td className="py-4 px-4 font-medium">${totalPrice.toFixed(2)}</td>
                 </tr>
               </tbody>
             </table>
@@ -130,9 +142,9 @@ export default function Facture({ orderDetails, onConfirm }) {
                 <tbody className="text-gray-600">
                   <tr>
                     <td className="pr-4 py-2">Subtotal:</td>
-                    <td className="font-medium">${orderDetails.totalPrice.toFixed(2)}</td>
+                    <td className="font-medium">${totalPrice.toFixed(2)}</td>
                   </tr>
-                  {productDetails.shipping === 'Yes' && (
+                  {orderDetails.shipping === 'Yes' && (
                     <tr>
                       <td className="pr-4 py-2">Shipping:</td>
                       <td className="font-medium">${productDetails.shippingPrice?.toFixed(2) || 'Loading...'}</td>
@@ -140,7 +152,7 @@ export default function Facture({ orderDetails, onConfirm }) {
                   )}
                   <tr className="text-lg font-bold text-gray-800">
                     <td className="pr-4 py-2">Total:</td>
-                    <td>${(orderDetails.totalPrice + (productDetails.shippingPrice || 0)).toFixed(2)}</td>
+                    <td>${grandTotal.toFixed(2)}</td>
                   </tr>
                 </tbody>
               </table>
@@ -169,4 +181,4 @@ export default function Facture({ orderDetails, onConfirm }) {
       </div>
     </div>
   );
-}
+} 
